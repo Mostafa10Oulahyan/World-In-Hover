@@ -1,25 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Europe In Hover</title>
+    <title>World In Hover</title>
     <link rel="stylesheet" href="svg.css">
+    <link rel="icon" href="img/fav.png" class="width : 100px hight : 100px;">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="container">
-        <h1>Carte Interactive de l'Europe</h1>
-        <object type="image/svg+xml" data="img/europe.svg" id="carte-europe">
-        </object>   
+        <!-- Language Toggle -->
+        <div id="lang-toggle">
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="fr">FR</button>
+            <button class="lang-btn" data-lang="ar">AR</button>
+        </div>
+
+        <h1 id="main-title">Interactive World Map</h1>
+        <object type="image/svg+xml" data="img/world.svg" id="carte-europe">
+        </object>
         <div id="info-box">
-            <h3 id="pays-nom">Sélectionnez un pays</h3>
-            <p>Population: <span id="population">-</span></p>
-            <p>Superficie: <span id="superficie">-</span> km²</p>
-            <p>Gouvernement: <span id="gouvernement">-</span></p>
-            <p>Capitale: <span id="capitale">-</span></p>
-            <p>Monnaie: <span id="monnaie">-</span></p>
+            <button id="close-btn" title="Reset">&times;</button>
+            <h3 id="pays-nom">Select a country</h3>
+            <p><span class="label" data-label="population">Population</span>: <span id="population">-</span></p>
+            <p><span class="label" data-label="superficie">Area</span>: <span id="superficie">-</span> km²</p>
+            <p><span class="label" data-label="gouvernement">Government</span>: <span id="gouvernement">-</span></p>
+            <p><span class="label" data-label="capitale">Capital</span>: <span id="capitale">-</span></p>
+            <p><span class="label" data-label="monnaie">Currency</span>: <span id="monnaie">-</span></p>
+            <a href="https://a5-react-bccc71.gitlab.io/" target="_blank" id="explore-btn" data-label="explore">Explore
+                More →</a>
         </div>
     </div>
     <script src="svg.js"></script>
 </body>
+
 </html>

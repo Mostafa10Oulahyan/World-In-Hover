@@ -1,55 +1,252 @@
-body{
-    background-color: #0cbeff;
-    font-family: Pacifico;
-    font-weight: 500;
-  }
-  h1{
-    background-clip: text ;
-    color: transparent;
-    background: linear-gradient(45deg, red, blue ,yellow,rgb(5, 255, 5));
-    -webkit-background-clip: text;
-    animation: me 3s linear infinite;
-    background-size: 300% 100%;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-    .container {
-        width: 80%;
-        margin: 20px auto;
-        text-align: center;
-     
-    }
-    .pays {
-        fill: #88adef;
-        stroke: #333;
-        stroke-width: 0.5;
-        transition: all 0.3s;
-        cursor: pointer;
-    }
-    .pays:hover {
-        fill: #ffd966;
-        stroke-width: 1;
+body {
+    background-color: #0cbeff;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+h1 {
+    background-clip: text;
+    color: transparent;
+    background: linear-gradient(135deg, #00d2ff, #3a7bd5, #00d2ff, #7b2ff7);
+    -webkit-background-clip: text;
+    animation: gradientShift 4s ease infinite;
+    background-size: 300% 100%;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    text-align: center;
+    position: relative;
+}
+
+#carte-europe {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    display: block;
+}
+
+/* ── Language Toggle ── */
+#lang-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 4px;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.lang-btn {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.5);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lang-btn:hover {
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.lang-btn.active {
+    background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+    color: #fff;
+    box-shadow: 0 2px 10px rgba(58, 123, 213, 0.4);
+}
+
+/* ── Info Box ── */
+#info-box {
+    position: fixed;
+    border-radius: 16px;
+    top: 20px;
+    right: 20px;
+    color: #e0e6ed;
+    background: rgba(15, 25, 50, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 20px 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 240px;
+    z-index: 1000;
+}
+
+#info-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    border-color: rgba(58, 123, 213, 0.3);
+}
+
+#info-box h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+#info-box p {
+    font-size: 0.88rem;
+    margin: 6px 0;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.5;
+}
+
+#info-box .label {
+    color: rgba(255, 255, 255, 0.45);
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#info-box span:not(.label) {
+    color: #fff;
+    font-weight: 500;
+}
+
+/* ── Close / Reset Button ── */
+#close-btn {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.5);
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+    line-height: 1;
+}
+
+#close-btn:hover {
+    background: rgba(255, 70, 70, 0.2);
+    border-color: rgba(255, 70, 70, 0.4);
+    color: #ff4646;
+    transform: rotate(90deg);
+}
+
+/* ── SVG Country Styles ── */
+.pays {
+    fill: #88adef;
+    stroke: #333;
+    stroke-width: 0.5;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.pays:hover {
+    fill: #ffd966;
+    stroke-width: 1;
+}
+
+/* ── RTL support for Arabic ── */
+body[dir="rtl"] #info-box {
+    right: auto;
+    left: 20px;
+    text-align: right;
+}
+
+body[dir="rtl"] #close-btn {
+    right: auto;
+    left: 12px;
+}
+
+body[dir="rtl"] #lang-toggle {
+    left: auto;
+    right: 20px;
+}
+
+/* ── Explore More Button ── */
+#explore-btn {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 10px 22px;
+    background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-align: center;
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(58, 123, 213, 0.35);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+#explore-btn::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 40%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.15);
+    transform: rotate(25deg);
+    transition: left 0.5s ease;
+}
+
+#explore-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 22px rgba(58, 123, 213, 0.5);
+    background: linear-gradient(135deg, #00d2ff, #3a7bd5);
+}
+
+#explore-btn:hover::after {
+    left: 120%;
+}
+
+/* ── Animations ── */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
     }
 
-    #info-box {
-        position: fixed;
-        border-radius: 10px;
-        top: 20px;
-        color: aliceblue;
-        right: 20px;
-        background: rgba(0, 255, 76, 0.199);
-        padding: 15px;
-        border: 1px solid #ccc;
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.113);
-        transition: all 0.2s ease-out ;
-        min-width: 200px;
+    50% {
+        background-position: 100% 50%;
     }
-    #info-box:hover{
-        transform: scale(1.02);
-        letter-spacing: 1.4px;
-        background: transparent;
+
+    100% {
+        background-position: 0% 50%;
     }
-    @keyframes me{
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
+}
